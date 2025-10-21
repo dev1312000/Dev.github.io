@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GNC Engineer - Aerospace Portfolio</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00D4FF;
+            --secondary: #00FF94;
+            --dark: #0A0E27;
+            --light: #1A1F3A;
+            --text: #B8BCC8;
+            --aerospace: #151932;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text);
+            line-height: 1.6;
+            background: #0A0E27;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 14, 39, 0.98);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            transition: color 0.3s;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Sections */
+        section {
+            min-height: 100vh;
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Hero */
+        #home {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            background: linear-gradient(135deg, #0A0E27 0%, #151932 100%);
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            color: white;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .expertise {
+            font-size: 1rem;
+            color: var(--text);
+            margin-bottom: 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.75rem 2rem;
+            border: 2px solid var(--primary);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--dark);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        .btn-outline {
+            color: var(--primary);
+            border-color: var(--primary);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: var(--dark);
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        /* Portfolio Tiles */
+        #portfolio {
+            padding: 5rem 2rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(135deg, #0A0E27 0%, #151932 100%);
+        }
+
+        #portfolio h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .projects-tiles {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .project-tile {
+            background: rgba(26, 31, 58, 0.6);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 10px;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-tile::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transform: translateX(-100%);
+            transition: transform 0.3s;
+        }
+
+        .project-tile:hover::before {
+            transform: translateX(0);
+        }
+
+        .project-tile:hover {
+            background: rgba(26, 31, 58, 0.9);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+            border-color: var(--primary);
+        }
+
+        .tile-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .tile-title {
+            font-size: 1.2rem;
+            color: white;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .tile-category {
+            font-size: 0.85rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .tile-brief {
+            font-size: 0.95rem;
+            color: var(--text);
+            flex: 1;
+        }
+
+        .tile-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            margin-top: 1rem;
+        }
+
+        .tech-tag {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--primary);
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.75rem;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        /* Project Detail Page */
+        .project-detail {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0A0E27;
+            z-index: 2000;
+            overflow-y: auto;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        .project-detail.active {
+            display: block;
+        }
+
+        .detail-header {
+            background: linear-gradient(135deg, #0A0E27 0%, #151932 100%);
+            padding: 2rem;
+            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .detail-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .detail-close:hover {
+            background: var(--primary);
+            color: var(--dark);
+        }
+
+        .detail-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            color: white;
+        }
+
+        .detail-title {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-category {
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2rem;
+        }
+
+        .detail-section {
+            margin-bottom: 3rem;
+        }
+
+        .detail-section h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .detail-section p, .detail-section ul {
+            line-height: 1.8;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .detail-section ul {
+            margin-left: 2rem;
+            margin-top: 1rem;
+        }
+
+        .detail-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .metric {
+            background: rgba(26, 31, 58, 0.6);
+            padding: 1.5rem;
+            border-radius: 5px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: var(--text);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Resume */
+        #resume {
+            background: linear-gradient(135deg, #151932 0%, #0A0E27 100%);
+            padding: 5rem 2rem;
+            color: white;
+            min-height: 100vh;
+        }
+
+        #resume h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            text-align: center;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .resume-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .resume-section h3 {
+            color: var(--secondary);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary);
+        }
+
+        .resume-item {
+            margin-bottom: 2rem;
+        }
+
+        .resume-item h4 {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .resume-date {
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .resume-item p {
+            color: var(--text);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .skill {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.3);
+            padding: 0.75rem;
+            border-radius: 5px;
+            text-align: center;
+            color: var(--primary);
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+
+        .skill:hover {
+            background: rgba(0, 212, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Contact */
+        #contact {
+            text-align: center;
+            padding: 5rem 2rem;
+            color: white;
+            background: linear-gradient(135deg, #0A0E27 0%, #151932 100%);
+            min-height: 50vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        #contact h2 {
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--primary);
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-links a {
+            color: var(--primary);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--primary);
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .contact-links a:hover {
+            background: var(--primary);
+            color: var(--dark);
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .projects-tiles {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto;
+                max-height: none;
+            }
+            
+            .resume-content {
+                grid-template-columns: 1fr;
+            }
+
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#portfolio">Projects</a></li>
+            <li><a href="#resume">Resume</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home">
+        <h1>Your Name</h1>
+        <p class="subtitle">Guidance, Navigation & Control Engineer</p>
+        <p class="expertise">Spacecraft Dynamics | Autonomous Systems | Flight Software | Trajectory Optimization</p>
+        <div class="cta-buttons">
+            <a href="#portfolio" class="btn btn-primary">View Projects</a>
+            <a href="#contact" class="btn btn-outline">Contact</a>
+        </div>
+    </section>
+
+    <!-- Portfolio Tiles -->
+    <section id="portfolio">
+        <h2>Aerospace Projects</h2>
+        <div class="projects-tiles">
+            <!-- Project 1 -->
+            <div class="project-tile" onclick="openProject(1)">
+                <div class="tile-icon">🛰️</div>
+                <h3 class="tile-title">LEO Satellite Attitude Control</h3>
+                <p class="tile-category">Attitude Determination</p>
+                <p class="tile-brief">Quaternion-based ADCS for CubeSat with reaction wheels</p>
+                <div class="tile-tech">
+                    <span class="tech-tag">MATLAB</span>
+                    <span class="tech-tag">Simulink</span>
+                    <span class="tech-tag">C++</span>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-tile" onclick="openProject(2)">
+                <div class="tile-icon">🚀</div>
+                <h3 class="tile-title">Mars Entry Guidance</h3>
+                <p class="tile-category">Trajectory Optimization</p>
+                <p class="tile-brief">Powered descent guidance using convex optimization</p>
+                <div class="tile-tech">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">GMAT</span>
+                    <span class="tech-tag">CVX</span>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-tile" onclick="openProject(3)">
+                <div class="tile-icon">✈️</div>
+                <h3 class="tile-title">UAV Swarm Coordination</h3>
+                <p class="tile-category">Multi-Agent Control</p>
+                <p class="tile-brief">Distributed consensus algorithms for formation flight</p>
+                <div class="tile-tech">
+                    <span class="tech-tag">ROS</span>
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Gazebo</span>
+                </div>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="project-tile" onclick="openProject(4)">
+                <div class="tile-icon">📡</div>
+                <h3 class="tile-title">GPS/INS Fusion</h3>
+                <p class="tile-category">Navigation Systems</p>
+                <p class="tile-brief">Extended Kalman filter for sensor fusion</p>
+                <div class="tile-tech">
+                    <span class="tech-tag">MATLAB</span>
+                    <span class="tech-tag">Embedded C</span>
+                    <span class="tech-tag">STM32</span>
+                </div>
+            </div>
+
+            <!-- Project 5 -->
+            <div class="project-tile" onclick="openProject(5)">
+                <div class="tile-icon">🌍</div>
+                <h3 class="tile-title">Orbital Mechanics Toolkit</h3>
+                <p class="tile-category">Mission Analysis</p>
+                <p class="tile-brief">Lambert solver and orbit propagation tools</p>
+                <div class="tile-tech">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">NumPy</span>
+                    <span class="tech-tag">Astropy</span>
+                </div>
+            </div>
+
+            <!-- Project 6 -->
+            <div class="project-tile" onclick="openProject(6)">
+                <div class="tile-icon">🎯</div>
+                <h3 class="tile-title">Missile Guidance System</h3>
+                <p class="tile-category">Interceptor Design</p>
+                <p class="tile-brief">Proportional navigation with predictive targeting</p>
+                <div class="tile-tech">
+                    <span class="tech-tag">Simulink</span>
+                    <span class="tech-tag">C++</span>
+                    <span class="tech-tag">HIL Testing</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Detail Pages -->
+    <div id="project-detail" class="project-detail">
+        <button class="detail-close" onclick="closeProject()">← BACK TO PROJECTS</button>
+        <div class="detail-content">
+            <div class="detail-header">
+                <h2 class="detail-title" id="detail-title">Project Title</h2>
+                <p class="detail-category" id="detail-category">Category</p>
+            </div>
+            
+            <div class="detail-section">
+                <h3>Problem Statement</h3>
+                <p id="detail-problem">Problem description will appear here.</p>
+            </div>
+
+            <div class="detail-section">
+                <h3>Technical Approach</h3>
+                <p id="detail-solution">Solution description will appear here.</p>
+                <ul id="detail-approach"></ul>
+            </div>
+
+            <div class="detail-section">
+                <h3>Key Results</h3>
+                <div class="metrics-grid" id="detail-metrics"></div>
+            </div>
+
+            <div class="detail-section">
+                <h3>Technologies Used</h3>
+                <div class="tile-tech" id="detail-tech"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resume Section -->
+    <section id="resume">
+        <h2>Professional Background</h2>
+        <div class="resume-content">
+            <div>
+                <div class="resume-section">
+                    <h3>Experience</h3>
+                    <div class="resume-item">
+                        <h4>Senior GNC Engineer</h4>
+                        <p class="resume-date">Aerospace Company | 2022 - Present</p>
+                        <p>Lead GNC design for satellite constellation. Developed autonomous navigation algorithms. Reduced fuel consumption by 30% through optimal trajectory planning.</p>
+                    </div>
+                    <div class="resume-item">
+                        <h4>Flight Software Engineer</h4>
+                        <p class="resume-date">Space Startup | 2020 - 2022</p>
+                        <p>Implemented real-time control systems for launch vehicles. Designed fault-tolerant navigation filters. Supported 3 successful launches.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div>
+                <div class="resume-section">
+                    <h3>Education</h3>
+                    <div class="resume-item">
+                        <h4>M.S. Aerospace Engineering</h4>
+                        <p class="resume-date">University Name | 2018 - 2020</p>
+                        <p>Focus: Spacecraft Dynamics and Control, Optimal Control Theory</p>
+                    </div>
+                    <div class="resume-item">
+                        <h4>B.S. Aerospace Engineering</h4>
+                        <p class="resume-date">University Name | 2014 - 2018</p>
+                        <p>Minor: Computer Science, GPA: 3.8/4.0</p>
+                    </div>
+                </div>
+                
+                <div class="resume-section">
+                    <h3>Technical Skills</h3>
+                    <div class="skills-grid">
+                        <div class="skill">MATLAB/Simulink</div>
+                        <div class="skill">Python</div>
+                        <div class="skill">C/C++</div>
+                        <div class="skill">STK</div>
+                        <div class="skill">GMAT</div>
+                        <div class="skill">Kalman Filtering</div>
+                        <div class="skill">Control Theory</div>
+                        <div class="skill">Orbital Mechanics</div>
+                        <div class="skill">ROS</div>
+                        <div class="skill">Git</div>
+                        <div class="skill">DO-178C</div>
+                        <div class="skill">Monte Carlo</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contact</h2>
+        <p>Open to consulting and collaboration on aerospace GNC projects</p>
+        <p>email@example.com | +1 (555) 123-4567</p>
+        <div class="contact-links">
+            <a href="#">LinkedIn</a>
+            <a href="#">GitHub</a>
+            <a href="#">ResearchGate</a>
+        </div>
+    </section>
+
+    <script>
+        // Project data
+        const projects = {
+            1: {
+                title: "LEO Satellite Attitude Control",
+                category: "Attitude Determination & Control",
+                problem: "A 3U CubeSat mission required precise pointing accuracy of ±0.5° for Earth observation payload while minimizing power consumption and dealing with limited computational resources. The satellite operated in a 500km sun-synchronous orbit with significant aerodynamic disturbances.",
+                solution: "Developed a quaternion-based attitude determination and control system using Extended Kalman Filter for sensor fusion and optimal control allocation.",
+                approach: [
+                    "Implemented quaternion-based EKF fusing magnetometer, sun sensor, and gyroscope data",
+                    "Designed PD controller with feedforward compensation for reaction wheel control",
+                    "Created momentum unloading algorithm using magnetorquers",
+                    "Developed fault detection and isolation system for sensor failures",
+                    "Validated system through Hardware-in-the-Loop testing"
+                ],
+                metrics: [
+                    { value: "±0.3°", label: "Pointing Accuracy" },
+                    { value: "2.5W", label: "Average Power" },
+                    { value: "98%", label: "Uptime" }
+                ],
+                tech: ["MATLAB", "Simulink", "C++", "FreeRTOS", "STM32"]
+            },
+            2: {
+                title: "Mars Entry Guidance",
+                category: "Trajectory Optimization",
+                problem: "Design powered descent guidance algorithm for Mars lander with fuel-optimal trajectory while satisfying multiple constraints including glide slope, thrust limits, and surface hazard avoidance. System must compute trajectory in real-time with radiation-hardened processor.",
+                solution: "Implemented successive convexification approach for real-time trajectory generation with guaranteed convergence properties.",
+                approach: [
+                    "Formulated powered descent as Second-Order Cone Programming problem",
+                    "Implemented lossless convexification for thrust magnitude constraints",
+                    "Developed terrain-relative navigation using vision-based features",
+                    "Created adaptive mesh refinement for trajectory discretization",
+                    "Validated with Monte Carlo simulations covering dispersions"
+                ],
+                metrics: [
+                    { value: "15%", label: "Fuel Savings" },
+                    { value: "<2s", label: "Computation Time" },
+                    { value: "99.7%", label: "Success Rate" }
+                ],
+                tech: ["Python", "CVX", "GMAT", "C++", "CUDA"]
+            },
+            3: {
+                title: "UAV Swarm Coordination",
+                category: "Multi-Agent Control",
+                problem: "Coordinate 12 quadrotors for search and rescue operations in GPS-denied environments. System must maintain formation while avoiding collisions and adapting to individual vehicle failures.",
+                solution: "Developed distributed consensus-based control with local collision avoidance using artificial potential fields.",
+                approach: [
+                    "Implemented consensus protocol for formation control",
+                    "Designed artificial potential fields for collision avoidance",
+                    "Created vision-based relative localization system",
+                    "Developed resilient communication protocol with mesh networking",
+                    "Built Gazebo simulation environment for testing"
+                ],
+                metrics: [
+                    { value: "12", label: "UAVs Coordinated" },
+                    { value: "0", label: "Collisions" },
+                    { value: "85%", label: "Area Coverage" }
+                ],
+                tech: ["ROS", "Python", "Gazebo", "PX4", "OpenCV"]
+            },
+            4: {
+                title: "GPS/INS Fusion",
+                category: "Navigation Systems",
+                problem: "Aircraft navigation system experiencing GPS outages in urban canyon environments. Required seamless transition between GPS-available and GPS-denied modes while maintaining position accuracy within 10 meters.",
+                solution: "Designed adaptive Extended Kalman Filter with online covariance tuning and zero-velocity updates.",
+                approach: [
+                    "Implemented 15-state EKF with IMU error modeling",
+                    "Developed GPS outage detection using innovation monitoring",
+                    "Created adaptive noise covariance based on vehicle dynamics",
+                    "Integrated barometric altimeter for vertical channel stability",
+                    "Added zero-velocity update detection for ground vehicles"
+                ],
+                metrics: [
+                    { value: "5m", label: "Position Error (RMS)" },
+                    { value: "100Hz", label: "Update Rate" },
+                    { value: "3min", label: "GPS-Denied Duration" }
+                ],
+                tech: ["MATLAB", "Embedded C", "STM32", "CAN Bus", "SPI"]
+            },
+            5: {
+                title: "Orbital Mechanics Toolkit",
+                category: "Mission Analysis",
+                problem: "Mission planning team needed rapid trajectory analysis tools for constellation deployment. Required Lambert solver, orbit propagation, and ground track visualization for multiple orbital regimes.",
+                solution: "Built Python library with optimized numerical methods for orbital mechanics computations.",
+                approach: [
+                    "Implemented universal variable Lambert solver",
+                    "Created SGP4/SDP4 propagators for TLE processing",
+                    "Developed Encke's method for long-term propagation",
+                    "Added J2-J6 perturbation models",
+                    "Built interactive Plotly visualizations"
+                ],
+                metrics: [
+                    { value: "<1ms", label: "Lambert Solution" },
+                    { value: "1e-9", label: "Energy Conservation" },
+                    { value: "5000+", label: "Downloads" }
+                ],
+                tech: ["Python", "NumPy", "Numba", "Astropy", "Plotly"]
+            },
+            6: {
+                title: "Missile Guidance System",
+                category: "Interceptor Design",
+                problem: "Design guidance law for surface-to-air missile to intercept maneuvering targets at high closing velocities. System must handle sensor noise, target acceleration up to 9g, and achieve <1m miss distance.",
+                solution: "Augmented proportional navigation with predictive guidance using target acceleration estimation.",
+                approach: [
+                    "Implemented Augmented Proportional Navigation (APN) law",
+                    "Designed alpha-beta-gamma filter for target state estimation",
+                    "Created optimal guidance gain scheduling based on time-to-go",
+                    "Developed seeker stabilization loop for high-g maneuvers",
+                    "Validated with 6-DOF simulation and HIL testing"
+                ],
+                metrics: [
+                    { value: "0.8m", label: "CEP" },
+                    { value: "Mach 3.5", label: "Max Velocity" },
+                    { value: "40g", label: "Max Acceleration" }
+                ],
+                tech: ["Simulink", "C++", "dSPACE", "HIL", "DO-178C"]
+            }
+        };
+
+        function openProject(id) {
+            const project = projects[id];
+            document.getElementById('detail-title').textContent = project.title;
+            document.getElementById('detail-category').textContent = project.category;
+            document.getElementById('detail-problem').textContent = project.problem;
+            document.getElementById('detail-solution').textContent = project.solution;
+            
+            // Approach list
+            const approachList = document.getElementById('detail-approach');
+            approachList.innerHTML = project.approach.map(item => `<li>${item}</li>`).join('');
+            
+            // Metrics
+            const metricsGrid = document.getElementById('detail-metrics');
+            metricsGrid.innerHTML = project.metrics.map(metric => `
+                <div class="metric">
+                    <div class="metric-value">${metric.value}</div>
+                    <div class="metric-label">${metric.label}</div>
+                </div>
+            `).join('');
+            
+            // Technologies
+            const techDiv = document.getElementById('detail-tech');
+            techDiv.innerHTML = project.tech.map(tech => `<span class="tech-tag">${tech}</span>`).join('');
+            
+            document.getElementById('project-detail').classList.add('active');
+        }
+
+        function closeProject() {
+            document.getElementById('project-detail').classList.remove('active');
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Active navigation
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            document.querySelectorAll('nav a').forEach(link => {
+                link.style.color = '';
+                if (link.getAttribute('href').slice(1) === current) {
+                    link.style.color = '#00D4FF';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
